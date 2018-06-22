@@ -23,6 +23,7 @@ void Food::update(Snake* snake) {
 	if (checkCollision(snake)) {
 		rect.x = randomInt(10, 790);
 		rect.y = randomInt(10, 590);
+		snake->setElongate(true);
 	}
 }
 

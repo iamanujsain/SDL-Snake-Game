@@ -18,6 +18,8 @@ public:
 
 	std::vector<Point> snakePoints;
 
+	void setElongate(bool b);
+
 private:
 	const int 
 		STARTSIZE = 17, 

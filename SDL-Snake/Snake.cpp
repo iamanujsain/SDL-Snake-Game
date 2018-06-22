@@ -125,3 +125,7 @@ bool Snake::collision() {
 	}
 	return false;
 }
+
+void Snake::setElongate(bool b) {
+	elongate = b;
+}
