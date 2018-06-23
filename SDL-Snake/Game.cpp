@@ -1,19 +1,21 @@
 #include "Game.h"
+#include "Snake.h"
+#include "Food.h"
 
+Snake *snake = new Snake();
+Food *food = new Food();
 
-
-Game::Game()
-{
+Game::Game() {
+	gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED);
 }
 
 
-Game::~Game()
-{
+Game::~Game() {
 }
 
 bool Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen) {
 	success = true;
-	int flags = 0;
+	int flags = SDL_WINDOW_OPENGL;
 	if (fullscreen) {
 		flags = SDL_WINDOW_FULLSCREEN;
 	}
@@ -35,7 +37,8 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 				success = false;
 			}
 			else {
-				SDL_SetRenderDrawColor(gRenderer, 59, 89, 152, 255);
+				SDL_SetRenderDrawColor(gRenderer, 59, 89, 152, 255);  // The color used for filling up the background.
+				SDL_RenderClear(gRenderer);  //	Clears the current rendering target with the drawing colour.
 			}
 		}
 	}
@@ -45,6 +48,7 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 void Game::handleEvents() {
 	SDL_Event event;
 	SDL_PollEvent(&event);
+	snake->handleEvents(&event);  // Controls the snake.
 	switch (event.type) {
 	case SDL_QUIT:
 		isRunning = false;
@@ -55,12 +59,15 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
-
+	snake->update();
+	food->update(snake);
 }
 
 void Game::render() {
+	SDL_SetRenderDrawColor(gRenderer, 59, 89, 152, 255);
 	SDL_RenderClear(gRenderer);
-
+	snake->render(gRenderer);
+	food->render(gRenderer);
 	SDL_RenderPresent(gRenderer);
 }
 
