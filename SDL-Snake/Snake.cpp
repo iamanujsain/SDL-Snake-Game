@@ -90,6 +90,7 @@ void Snake::handleEvents(SDL_Event *e) {
 				return;
 			}
 			else {
+				reset();
 				isMoving = true;
 				dx = 1;
 			}
@@ -128,4 +129,11 @@ bool Snake::collision() {
 
 void Snake::setElongate(bool b) {
 	elongate = b;
+}
+
+void Snake::reset() {
+	snakePoints.clear();
+	for (int i = 0; i < STARTSIZE; i++) {
+		snakePoints.push_back(Point(STARTX - (BLOCKSIZE*i), STARTY));
+	}
 }

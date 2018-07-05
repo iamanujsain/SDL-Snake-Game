@@ -15,9 +15,8 @@ public:
 	void render();
 	void clean();
 	bool running();
-	void setIsRunning(bool b) {
-		isRunning = b;
-	}
+	void setIsRunning(bool b);
+	void setWindowIcon(SDL_Window *window);
 
 private:
 	bool success;

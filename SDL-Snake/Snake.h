@@ -19,6 +19,7 @@ public:
 	std::vector<Point> snakePoints;
 
 	void setElongate(bool b);
+	void reset();
 
 private:
 	const int 
