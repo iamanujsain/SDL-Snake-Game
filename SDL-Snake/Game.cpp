@@ -49,11 +49,52 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 void Game::handleEvents() {
 	SDL_Event event;
 	SDL_PollEvent(&event);
-	snake->handleEvents(&event);  // Controls the snake.
+
 	switch (event.type) {
 	case SDL_QUIT:
 		isRunning = false;
 		break;
+	case SDL_KEYDOWN:
+		switch (event.key.keysym.sym) {
+		case SDLK_UP:
+			if (snake->getIsMoving() && snake->getDy() != 1) {
+				snake->setDy(-1);
+				snake->setDx(0);
+			}
+			break;
+		case SDLK_DOWN:
+			if (snake->getIsMoving() && snake->getDy() != -1) {
+				snake->setDy(1);
+				snake->setDx(0);
+			}
+			break;
+		case SDLK_LEFT:
+			if (snake->getIsMoving() && snake->getDx() != 1) {
+				snake->setDx(-1);
+				snake->setDy(0);
+			}
+			break;
+		case SDLK_RIGHT:
+			if (snake->getIsMoving() && snake->getDx() != -1) {
+				snake->setDx(1);
+				snake->setDy(0);
+			}
+			break;
+		case SDLK_SPACE:
+			if (snake->getIsMoving()) {
+				return;
+			}
+			else {
+				snake->reset();
+				food->setScore(0);
+				food->printScore();
+				snake->setIsMoving(true);
+				snake->setDx(1);
+			}
+			break;
+		default:
+			break;
+		}
 	default:
 		break;
 	}
