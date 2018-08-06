@@ -11,18 +11,24 @@ public:
 
 	void render(SDL_Renderer *renderer);
 	void update();
-	void handleEvents(SDL_Event *e);
+	//void handleEvents(SDL_Event *e);
 
 	void setIsMoving(bool b);
 	bool getIsMoving();
+	int getDx();
+	int getDy();
+	void setDx(int input);
+	void setDy(int input);
+
 
 	std::vector<Point> snakePoints;
 
 	void setElongate(bool b);
+	void reset();
 
 private:
 	const int 
-		STARTSIZE = 17, 
+		STARTSIZE = 7, 
 		BLOCKSIZE = 7, 
 		STARTX = 200, 
 		STARTY = 200;

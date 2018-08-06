@@ -57,48 +57,6 @@ void Snake::setIsMoving(bool b) {
 	isMoving = b;
 }
 
-void Snake::handleEvents(SDL_Event *e) {
-	switch (e->type) {
-	case SDL_KEYDOWN:
-		switch (e->key.keysym.sym) {
-		case SDLK_UP:
-			if (isMoving && dy != 1) {
-				dy = -1;
-				dx = 0;
-			}
-			break;
-		case SDLK_DOWN:
-			if (isMoving && dy != -1) {
-				dy = 1;
-				dx = 0;
-			}
-			break;
-		case SDLK_LEFT:
-			if (isMoving && dx != 1) {
-				dx = -1;
-				dy = 0;
-			}
-			break;
-		case SDLK_RIGHT:
-			if (isMoving && dx != -1) {
-				dx = 1;
-				dy = 0;
-			}
-			break;
-		case SDLK_SPACE:
-			if (isMoving) {
-				return;
-			}
-			else {
-				isMoving = true;
-				dx = 1;
-			}
-			break;
-		}
-		break;
-	}
-}
-
 void Snake::moveTroughWalls() {
 	if (snakePoints[0].getX() > 800-BLOCKSIZE && dx == 1) {
 		snakePoints[0].setX(0);
@@ -128,4 +86,27 @@ bool Snake::collision() {
 
 void Snake::setElongate(bool b) {
 	elongate = b;
+}
+
+void Snake::reset() {
+	snakePoints.clear();
+	for (int i = 0; i < STARTSIZE; i++) {
+		snakePoints.push_back(Point(STARTX - (BLOCKSIZE*i), STARTY));
+	}
+}
+
+void Snake::setDx(int input) {
+	dx = input;
+}
+
+void Snake::setDy(int input) {
+	dy = input;
+}
+
+int Snake::getDx() {
+	return dx;
+}
+
+int Snake::getDy() {
+	return dy;
 }
